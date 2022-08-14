@@ -1,58 +1,31 @@
 package rabbitmq;
 
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
-import rabbitmq.currency.client.RpcClient;
-import rabbitmq.currency.model.CurrencyConversion;
+import rabbitmq.client.Sender;
+import rabbitmq.model.CurrencyConversion;
+
+import java.util.ArrayList;
 
 @SpringBootApplication
 public class ClientApplication implements CommandLineRunner {
 
-    public static final String DIRECT_EXCHANGE_NAME = "rabbitmq-exchange";
-
-
-    public RpcClient rpcClient;
-
-    @Autowired
-    public void setRpcClient(@Lazy RpcClient rpcClient) {
-        this.rpcClient = rpcClient;
-    }
-
-    @Bean
-    DirectExchange exchange() {
-        return new DirectExchange(DIRECT_EXCHANGE_NAME);
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        SpringApplication.run(ClientApplication.class, args).close();
-    }
-
-    @Bean
-    public Jackson2JsonMessageConverter producerMessageConverter() {
-        return new Jackson2JsonMessageConverter();
-    }
-
-    @Bean
-    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(producerMessageConverter());
-        return rabbitTemplate;
+    public static void main(String[] args) {
+        SpringApplication.run(ClientApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
-    //   rpcClient.sendConversionAndReceiveConvertedAmount(new CurrencyConversion(80.0, "Euro", "Dollar"));
-    //    rpcClient.sendProductAndReceiveCalculatedPrice("");
-    }
+    public void run(String... args) {
 
+        ArrayList<Double> amountList = new ArrayList<>();
+        amountList.add(80.0);
+        amountList.add(70.0);
+
+        Sender.sendConversion(new CurrencyConversion(amountList, "Euro", "Dollar"));
+
+        Sender.sendProduct("{ \"id\" : 1, \"name\" : \"Dummy\", \"celestialBodies\" : [ { \"id\" : 1, \"name\" : \"Sun\", \"amount\" : 1, \"price\" : 1.0, \"type\" : \"sun\", \"orbital\" : 0, \"radius\" : 1.0, \"volume\" : 1.0, \"mass\" : 1.0, \"gravity\" : 1.0, \"rotationVelocity\" : 1.0, \"orbitalVelocity\" : 1.0, \"surfaceTemperature\" : 1.0 }, { \"id\" : 1, \"name\" : \"Sun\", \"amount\" : 1, \"price\" : 1.0, \"type\" : \"sun\", \"orbital\" : 0, \"radius\" : 1.0, \"volume\" : 1.0, \"mass\" : 1.0, \"gravity\" : 1.0, \"rotationVelocity\" : 1.0, \"orbitalVelocity\" : 1.0, \"surfaceTemperature\" : 1.0 } ] }");
+    }
 
 }
 
