@@ -54,7 +54,6 @@ public class RabbitMqConfig {
         return BindingBuilder.bind(priceQueue()).to(exchange).with(PRICE_SERVICE_RESPONSE_ROUTING_KEY);
     }
 
-
     @Bean
     public Jackson2JsonMessageConverter producerMessageConverter() {
         return new Jackson2JsonMessageConverter();

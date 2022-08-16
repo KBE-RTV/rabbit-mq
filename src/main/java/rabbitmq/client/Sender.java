@@ -10,16 +10,20 @@ import rabbitmq.model.CurrencyConversion;
 
 @Component
 public class Sender {
-    public static RabbitTemplate rabbitTemplate;
+    private static RabbitTemplate rabbitTemplate;
+
+    private static ObjectMapper objectMapper;
 
     @Autowired
     public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
         Sender.rabbitTemplate = rabbitTemplate;
     }
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     public static void sendConversion(CurrencyConversion conversion) {
+
+        objectMapper = new ObjectMapper();
+
         try {
             String conversionAsJson = objectMapper.writeValueAsString(conversion);
 
@@ -27,9 +31,14 @@ public class Sender {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+        System.out.println("SENT conversion \n");
     }
 
     public static void sendProduct(String productAsJson) {
+
         rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRICE_SERVICE_CALL_ROUTING_KEY, productAsJson);
+
+        System.out.println("SENT product \n");
     }
 }
