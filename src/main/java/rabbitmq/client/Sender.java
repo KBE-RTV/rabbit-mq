@@ -35,10 +35,17 @@ public class Sender {
         System.out.println("SENT conversion \n");
     }
 
-    public static void sendProduct(String productAsJson) {
+    public static void sendProductsToCurrencyService(String message)
+    {
+        rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.CURRENCY_SERVICE_CALL_ROUTING_KEY, message);
 
-        rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRICE_SERVICE_CALL_ROUTING_KEY, productAsJson);
+        System.out.println("SENT product to currency-service \n");
+    }
 
-        System.out.println("SENT product \n");
+    public static void sendProductsToPriceService(String message) {
+
+        rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRICE_SERVICE_CALL_ROUTING_KEY, message);
+
+        System.out.println("SENT product to price-service \n");
     }
 }
