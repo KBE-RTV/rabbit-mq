@@ -1,12 +1,10 @@
 package rabbitmq.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import rabbitmq.config.RabbitMqConfig;
-import rabbitmq.model.CurrencyConversion;
 
 @Component
 public class Sender {
@@ -17,22 +15,6 @@ public class Sender {
     @Autowired
     public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
         Sender.rabbitTemplate = rabbitTemplate;
-    }
-
-
-    public static void sendConversion(CurrencyConversion conversion) {
-
-        objectMapper = new ObjectMapper();
-
-        try {
-            String conversionAsJson = objectMapper.writeValueAsString(conversion);
-
-            rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.CURRENCY_SERVICE_CALL_ROUTING_KEY, conversionAsJson);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("SENT conversion \n");
     }
 
     public static void sendProductsToCurrencyService(String message)
@@ -47,5 +29,12 @@ public class Sender {
         rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRICE_SERVICE_CALL_ROUTING_KEY, message);
 
         System.out.println("SENT product to price-service \n");
+    }
+
+    public static void sendRequestToProductService(String request)
+    {
+        rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRODUCT_SERVICE_CALL_ROUTING_KEY, request);
+
+        System.out.println("SENT request to product-service");
     }
 }

@@ -1,13 +1,8 @@
 package rabbitmq.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 import rabbitmq.config.RabbitMqConfig;
-import rabbitmq.model.CurrencyConversion;
-import rabbitmq.model.PlanetarySystem;
-import rabbitmq.model.ProductPrice;
 
 @Component
 class Receiver {
@@ -22,6 +17,13 @@ class Receiver {
     public void receiveCalculatedPrice(String calculatedPriceAsJson) {
 
         System.out.println("RECEIVED calculatedPrice: " + calculatedPriceAsJson + "\n");
+
+    }
+
+    @RabbitListener(queues = RabbitMqConfig.PRODUCT_SERVICE_RESPONSE_QUEUE_NAME)
+    public void receiveProducts(String productsAsJson) {
+
+        System.out.println("RECEIVED products: " + productsAsJson + "\n");
 
     }
 

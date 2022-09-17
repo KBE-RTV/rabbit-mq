@@ -2,12 +2,12 @@ package rabbitmq;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import rabbitmq.client.Sender;
 import rabbitmq.model.CelestialBody;
-import rabbitmq.model.CurrencyConversion;
 import rabbitmq.model.DTO.CurrencyMessageDTO;
 import rabbitmq.model.DTO.PriceMessageDTO;
 import rabbitmq.model.PlanetarySystem;
@@ -24,6 +24,7 @@ public class ClientApplication implements CommandLineRunner {
         SpringApplication.run(ClientApplication.class, args);
     }
 
+    @SneakyThrows
     @Override
     public void run(String... args) {
 
@@ -59,6 +60,13 @@ public class ClientApplication implements CommandLineRunner {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
+ /*
+        ProductServiceRequestDTO productServiceRequestDTO = new ProductServiceRequestDTO(UUID.randomUUID(), null, "product");
+
+        Sender.sendRequestToProductService(objectMapper.writeValueAsString(productServiceRequestDTO));
+
+ */
     }
 
 }

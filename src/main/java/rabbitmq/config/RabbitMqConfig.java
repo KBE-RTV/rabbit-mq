@@ -17,10 +17,15 @@ public class RabbitMqConfig {
     public static final String TOPIC_EXCHANGE_NAME = "kbe_topic_exchange";
     public static final String CURRENCY_SERVICE_RESPONSE_QUEUE_NAME = "currency_response_queue";
     public static final String PRICE_SERVICE_RESPONSE_QUEUE_NAME = "price_response_queue";
+    public static final String PRODUCT_SERVICE_RESPONSE_QUEUE_NAME = "product_response_queue";
     public static final String CURRENCY_SERVICE_CALL_ROUTING_KEY = "currencyService.call";
     public static final String CURRENCY_SERVICE_RESPONSE_ROUTING_KEY = "currencyService.response";
     public static final String PRICE_SERVICE_CALL_ROUTING_KEY = "priceService.call";
     public static final String PRICE_SERVICE_RESPONSE_ROUTING_KEY = "priceService.response";
+    public static final String PRODUCT_SERVICE_CALL_ROUTING_KEY = "productService.call";
+
+    public static final String PRODUCT_SERVICE_RESPONSE_ROUTING_KEY = "productService.response";
+
 
     public static TopicExchange exchange;
 
@@ -52,6 +57,16 @@ public class RabbitMqConfig {
     @Bean
     Binding priceBinding() {
         return BindingBuilder.bind(priceQueue()).to(exchange).with(PRICE_SERVICE_RESPONSE_ROUTING_KEY);
+    }
+
+    @Bean
+    Queue productQueue() {
+        return new Queue(PRODUCT_SERVICE_RESPONSE_QUEUE_NAME, false);
+    }
+
+    @Bean
+    Binding productBinding() {
+        return BindingBuilder.bind(productQueue()).to(exchange).with(PRODUCT_SERVICE_RESPONSE_ROUTING_KEY);
     }
 
     @Bean
