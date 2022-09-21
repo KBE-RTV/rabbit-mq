@@ -1,8 +1,16 @@
-version: '2'
+version: '3.9'
 
 services:
   rabbitmq:
+    container_name: rabbitMQService
     image: rabbitmq:management
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - warehouse_common_network
+
+networks:
+  warehouse_common_network:
+    external: true
+

@@ -13,21 +13,21 @@ import java.util.UUID;
 @Setter
 @ToString
 public class CurrencyMessageDTO {
-    private UUID callId;
+    private UUID requestID;
 
-    private ArrayList<PlanetarySystem> products;
+    private ArrayList<PlanetarySystem> planetarySystems;
 
     private String currencyToConvertFrom;
 
     private String currencyToConvertTo;
 
 
-    public CurrencyMessageDTO(@JsonProperty("callId") UUID callId,
-                              @JsonProperty("products") ArrayList<PlanetarySystem> products,
-                              @JsonProperty("currencyToConvertFrom") String currencyToConvertFrom,
-                              @JsonProperty("currencyToConvertTo") String currencyToConvertTo) {
-        this.callId = callId;
-        this.products = products;
+    public CurrencyMessageDTO(@JsonProperty("requestID") UUID callId,
+                      @JsonProperty("planetarySystems") ArrayList<PlanetarySystem> products,
+                      @JsonProperty("currencyToConvertFrom") String currencyToConvertFrom,
+                      @JsonProperty("currencyToConvertTo") String currencyToConvertTo) {
+        this.requestID = callId;
+        this.planetarySystems = products;
         this.currencyToConvertFrom = currencyToConvertFrom;
         this.currencyToConvertTo = currencyToConvertTo;
     }

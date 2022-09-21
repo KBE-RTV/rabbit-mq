@@ -10,6 +10,7 @@ import rabbitmq.client.Sender;
 import rabbitmq.model.CelestialBody;
 import rabbitmq.model.DTO.CurrencyMessageDTO;
 import rabbitmq.model.DTO.PriceMessageDTO;
+import rabbitmq.model.DTO.ProductServiceRequestDTO;
 import rabbitmq.model.PlanetarySystem;
 
 import java.util.ArrayList;
@@ -61,12 +62,12 @@ public class ClientApplication implements CommandLineRunner {
             throw new RuntimeException(e);
         }
 
- /*
+
         ProductServiceRequestDTO productServiceRequestDTO = new ProductServiceRequestDTO(UUID.randomUUID(), null, "product");
 
         Sender.sendRequestToProductService(objectMapper.writeValueAsString(productServiceRequestDTO));
 
- */
+
     }
 
 }

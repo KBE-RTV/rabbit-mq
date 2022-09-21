@@ -35,6 +35,6 @@ public class Sender {
     {
         rabbitTemplate.convertAndSend(RabbitMqConfig.exchange.getName(), RabbitMqConfig.PRODUCT_SERVICE_CALL_ROUTING_KEY, request);
 
-        System.out.println("SENT request to product-service");
+        System.out.println("SENT request to product-service \n");
     }
 }

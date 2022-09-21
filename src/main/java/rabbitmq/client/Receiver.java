@@ -10,7 +10,7 @@ class Receiver {
     @RabbitListener(queues = RabbitMqConfig.CURRENCY_SERVICE_RESPONSE_QUEUE_NAME)
     public void receiveConvertedAmount(String convertedAmountsAsJson) {
 
-        System.out.println("RECEIVED convertedAmounts: " + convertedAmountsAsJson);
+        System.out.println("RECEIVED convertedAmounts: " + convertedAmountsAsJson + "\n");
     }
 
     @RabbitListener(queues = RabbitMqConfig.PRICE_SERVICE_RESPONSE_QUEUE_NAME)
