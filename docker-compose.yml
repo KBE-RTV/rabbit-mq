@@ -8,9 +8,9 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - warehouse_common_network
+      - warehouse_commonNetwork
 
 networks:
-  warehouse_common_network:
+  warehouse_commonNetwork:
     external: true
 

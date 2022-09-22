@@ -38,7 +38,7 @@ public class RabbitMqConfig {
     TopicExchange exchange() {
         return new TopicExchange(TOPIC_EXCHANGE_NAME);
     }
-/*
+
 
         @Bean
         Queue currencyQueue() {
@@ -69,7 +69,7 @@ public class RabbitMqConfig {
         Binding productBinding() {
             return BindingBuilder.bind(productQueue()).to(exchange).with(PRODUCT_SERVICE_RESPONSE_ROUTING_KEY);
         }
-    */
+
     @Bean
     public Jackson2JsonMessageConverter producerMessageConverter() {
         return new Jackson2JsonMessageConverter();

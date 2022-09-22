@@ -62,11 +62,11 @@ public class ClientApplication implements CommandLineRunner {
             throw new RuntimeException(e);
         }
 
-
+/*
         ProductServiceRequestDTO productServiceRequestDTO = new ProductServiceRequestDTO(UUID.randomUUID(), null, "product");
 
         Sender.sendRequestToProductService(objectMapper.writeValueAsString(productServiceRequestDTO));
-
+*/
 
     }
 
